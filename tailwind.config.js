@@ -17,6 +17,10 @@ export default {
 				'magnolia': 'hsl(var(--magnolia)/<alpha-value>)',
 				'alabaster': 'hsl(var(--alabaster)/<alpha-value>)',
 			},
+			backgroundImage: {
+				'desktop': "url('/assets/images/bg-sidebar-desktop.svg')",
+				'mobile': "url('/assets/images/bg-sidebar-mobile.svg')",
+			},
 		},
 	},
 	plugins: [],
