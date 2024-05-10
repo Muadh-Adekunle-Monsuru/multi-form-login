@@ -18,6 +18,7 @@ export default function PersonalInfo() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		console.log(e);
 		const inputData = {
 			name: e.target.username.value,
 			email: e.target.email.value,
@@ -42,17 +43,47 @@ export default function PersonalInfo() {
 			console.log(newErrors);
 		}
 	};
+	const handleChange = async (e) => {
+		const form = document.forms['myForm'];
+		const inputData = {
+			name: form.elements['username'].value,
+			email: form.elements['email'].value,
+			phone: form.elements['phone'].value,
+		};
+		const empty = {
+			name: '',
+			email: '',
+			phone: '',
+		};
+		dispatch(addPersonalInfo(inputData));
+		try {
+			await validationSchema.validate(inputData, { abortEarly: false });
+			dispatch(addErrors(empty));
+		} catch (error: any) {
+			// const newErrors = {};
+			// error.inner.forEach((err: any) => {
+			// 	newErrors[err.path] = err.message;
+			// });
+			// dispatch(addErrors(newErrors));
+			// console.log(newErrors);
+		}
+	};
 	return (
-		<section className='lg:px-20 p-2 text-marine-blue'>
+		<section className='lg:px-20 py-5 text-marine-blue'>
 			<div>
-				<h1 className='font-bold text-4xl '>Personal info</h1>
+				<h1 className='font-bold text-3xl '>Personal info</h1>
 				<p className='text-gray-400 text-sm py-1'>
 					Please provide your name,email address and phone number
 				</p>
 
-				<form className='py-4 font-semibold space-y-3' onSubmit={handleSubmit}>
+				<form
+					id='myForm'
+					className='py-4 font-semibold space-y-5 lg:space-y-3'
+					onChange={handleChange}
+					onSubmit={handleSubmit}
+				>
 					<div className='flex flex-col gap-1'>
-						<label>Name</label>
+						<label className='text-sm'>Name</label>
 						{errors.name && (
 							<div className='text-red-500 text-xs text-right'>
 								{errors.name}
@@ -60,15 +91,16 @@ export default function PersonalInfo() {
 						)}
 						<input
 							name='username'
+							id='name'
 							placeholder='Name'
 							className={`p-2 border rounded-md border-purple-900 focus:border-purple-600 ${
 								errors.name ? 'border-2 border-red-500' : ''
 							}`}
-							// value={store.name}
+							value={store.name}
 						/>
 					</div>
 					<div className='flex flex-col gap-1'>
-						<label>Email Address</label>
+						<label className='text-sm'>Email Address</label>
 						{errors.email && (
 							<div className='text-red-500 text-xs text-right'>
 								{errors.email}
@@ -80,10 +112,11 @@ export default function PersonalInfo() {
 							className={`p-2 border rounded-md border-purple-900 ${
 								errors.email ? 'border-2 border-red-500' : ''
 							}`}
+							value={store.email}
 						/>
 					</div>
 					<div className='flex flex-col gap-1'>
-						<label>Phone Number</label>
+						<label className='text-sm'>Phone Number</label>
 						{errors.phone && (
 							<div className='text-red-500 text-xs text-right'>
 								{errors.phone}
@@ -92,12 +125,16 @@ export default function PersonalInfo() {
 						<input
 							name='phone'
 							placeholder='e.g +243 555 334 333'
-							className={`p-2 border rounded-md border-purple-900  ${
+							className={`p-2 border rounded-md border-purple-900 mb-12  ${
 								errors.phone ? 'border-2 border-red-500' : ''
 							}`}
+							value={store.phone}
 						/>
 					</div>
-					<button className='p-2 bg-purplish-blue text-white' type='submit'>
+					<button
+						className='absolute bottom-1 right-6 lg:relative float-end p-3 bg-marine-blue text-white rounded-md text-sm hover:bg-purplish-blue'
+						type='submit'
+					>
 						Next Step
 					</button>
 				</form>

@@ -11,6 +11,12 @@ interface data {
 		email: string;
 		phone: string;
 	};
+	plan: {
+		name: string;
+		price: string;
+		monthly: boolean;
+		yearly: boolean;
+	};
 }
 
 const initialState: data = {
@@ -24,6 +30,12 @@ const initialState: data = {
 		email: '',
 		phone: '',
 	},
+	plan: {
+		name: '',
+		price: '',
+		monthly: true,
+		yearly: false,
+	},
 };
 
 const dataSlice = createSlice({
@@ -36,8 +48,11 @@ const dataSlice = createSlice({
 		addErrors: (state, action) => {
 			state.errors = action.payload;
 		},
+		addPlan: (state, action) => {
+			state.plan = action.payload;
+		},
 	},
 });
 
-export const { addPersonalInfo, addErrors } = dataSlice.actions;
+export const { addPersonalInfo, addErrors, addPlan } = dataSlice.actions;
 export default dataSlice.reducer;

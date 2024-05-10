@@ -26,13 +26,13 @@ export default function NavLinks() {
 		},
 	];
 	return (
-		<nav className='flex lg:flex-col gap-3 p-5 text-alabaster text-sm'>
+		<nav className='flex lg:flex-col gap-4 p-5 text-alabaster text-xs'>
 			{navlinks.map((val) => (
 				<Link to={val.path} key={val.step}>
-					<div className='flex uppercase gap-3 items-center cursor-pointer hover:opacity-90'>
+					<div className='flex uppercase gap-3 items-center cursor-pointer hover:opacity-70'>
 						<div
 							className={clsx(
-								'w-9 h-9 flex items-center justify-center rounded-full border ',
+								'w-8 h-8 flex items-center justify-center rounded-full border ',
 								{
 									'bg-light-blue': val.path == location.pathname,
 								}
@@ -42,7 +42,7 @@ export default function NavLinks() {
 						</div>
 						<div className='flex flex-col'>
 							<div className=' text-gray-300 font-thin '>Step {val.step}:</div>
-							<div className='font-semibold font-mono text-lg'>{val.name}</div>
+							<div className='font-semibold font-mono text-sm'>{val.name}</div>
 						</div>
 					</div>
 				</Link>
