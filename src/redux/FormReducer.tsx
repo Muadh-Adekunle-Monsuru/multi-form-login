@@ -17,6 +17,11 @@ interface data {
 		monthly: boolean;
 		yearly: boolean;
 	};
+	addOns: {
+		'Online service': boolean;
+		'Larger storage': boolean;
+		'Customizable profile': boolean;
+	};
 }
 
 const initialState: data = {
@@ -36,6 +41,11 @@ const initialState: data = {
 		monthly: true,
 		yearly: false,
 	},
+	addOns: {
+		'Online service': false,
+		'Larger storage': false,
+		'Customizable profile': false,
+	},
 };
 
 const dataSlice = createSlice({
@@ -51,8 +61,12 @@ const dataSlice = createSlice({
 		addPlan: (state, action) => {
 			state.plan = action.payload;
 		},
+		addAddons: (state, action) => {
+			state.addOns = action.payload;
+		},
 	},
 });
 
-export const { addPersonalInfo, addErrors, addPlan } = dataSlice.actions;
+export const { addPersonalInfo, addErrors, addPlan, addAddons } =
+	dataSlice.actions;
 export default dataSlice.reducer;

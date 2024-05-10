@@ -69,26 +69,28 @@ export default function PersonalInfo() {
 		}
 	};
 	return (
-		<section className='lg:px-20 py-5 text-marine-blue'>
-			<div>
+		<section className='lg:px-20 pt-5 text-marine-blue'>
+			<div className='flex flex-col'>
 				<h1 className='font-bold text-3xl '>Personal info</h1>
 				<p className='text-gray-400 text-sm py-1'>
 					Please provide your name,email address and phone number
 				</p>
-
 				<form
 					id='myForm'
-					className='py-4 font-semibold space-y-5 lg:space-y-3'
+					className='py-3 font-semibold space-y-5 lg:space-y-3  flex-grow'
 					onChange={handleChange}
 					onSubmit={handleSubmit}
 				>
-					<div className='flex flex-col gap-1'>
-						<label className='text-sm'>Name</label>
-						{errors.name && (
-							<div className='text-red-500 text-xs text-right'>
-								{errors.name}
-							</div>
-						)}
+					<div className='flex flex-col '>
+						<label className='text-sm flex justify-between'>
+							Name
+							{errors.name && (
+								<span className='text-red-500 text-xs text-right'>
+									{errors.name}
+								</span>
+							)}
+						</label>
+
 						<input
 							name='username'
 							id='name'
@@ -100,12 +102,15 @@ export default function PersonalInfo() {
 						/>
 					</div>
 					<div className='flex flex-col gap-1'>
-						<label className='text-sm'>Email Address</label>
-						{errors.email && (
-							<div className='text-red-500 text-xs text-right'>
-								{errors.email}
-							</div>
-						)}
+						<label className='text-sm flex justify-between'>
+							Email Address
+							{errors.email && (
+								<span className='text-red-500 text-xs text-right'>
+									{errors.email}
+								</span>
+							)}
+						</label>
+
 						<input
 							name='email'
 							placeholder='Email'
@@ -116,16 +121,18 @@ export default function PersonalInfo() {
 						/>
 					</div>
 					<div className='flex flex-col gap-1'>
-						<label className='text-sm'>Phone Number</label>
-						{errors.phone && (
-							<div className='text-red-500 text-xs text-right'>
-								{errors.phone}
-							</div>
-						)}
+						<label className='text-sm flex justify-between'>
+							Phone Number
+							{errors.phone && (
+								<span className='text-red-500 text-xs text-right'>
+									{errors.phone}
+								</span>
+							)}
+						</label>
 						<input
 							name='phone'
 							placeholder='e.g +243 555 334 333'
-							className={`p-2 border rounded-md border-purple-900 mb-12  ${
+							className={`p-2 border rounded-md border-purple-900   ${
 								errors.phone ? 'border-2 border-red-500' : ''
 							}`}
 							value={store.phone}

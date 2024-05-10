@@ -125,7 +125,7 @@ export default function SelectPlan() {
 			</form>
 			<div className='flex justify-between lg:mt-12 items-center'>
 				<Link to={'/'}>
-					<p className='lg:relative absolute bottom-1 left-6 font-bold hover:text-purplish-blue cursor-pointer'>
+					<p className='lg:relative absolute bottom-1 left-6 font-bold hover:text-purplish-blue cursor-pointer text-gray-600'>
 						Go Back
 					</p>
 				</Link>
