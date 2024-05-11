@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AddOnOption from '../components/AddOnOption';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,9 @@ export default function AddOns() {
 	const monthly = useSelector(
 		(state: RootState) => state.formData.plan.monthly
 	);
+	useEffect(() => {
+		handleChange();
+	}, [monthly]);
 	const price = {
 		monthly: {
 			'Online service': '1',
@@ -30,11 +34,19 @@ export default function AddOns() {
 	const handleChange = () => {
 		const form = document.forms['PlanForm'];
 		const selection = {
-			'Online service': form.addOn1.checked,
-			'Larger storage': form.addOn2.checked,
-			'Customizable profile': form.addOn3.checked,
+			'Online service': {
+				selected: form.addOn1.checked,
+				price: getPrice('Online service', monthly),
+			},
+			'Larger storage': {
+				selected: form.addOn2.checked,
+				price: getPrice('Larger storage', monthly),
+			},
+			'Customizable profile': {
+				selected: form.addOn3.checked,
+				price: getPrice('Customizable profile', monthly),
+			},
 		};
-		console.log(selection);
 		dispatch(addAddons(selection));
 	};
 	return (
@@ -46,19 +58,22 @@ export default function AddOns() {
 				</p>
 			</div>
 			<form id='PlanForm'>
-				<div className='flex flex-col gap-2 py-3'>
+				<div className='flex flex-col gap-3 py-3'>
 					<label className='relative'>
 						<input
 							name='addOn1'
 							type='checkbox'
 							value='Online service'
-							checked={store['Online service']}
+							checked={store['Online service'].selected}
 							onChange={handleChange}
 							className='absolute top-6 left-6 '
 						/>
 						<AddOnOption
 							name='Online service'
 							description='Access to multiplayer games'
+							price={getPrice('Online service', monthly)}
+							monthly={monthly}
+							selected={store['Online service'].selected}
 						/>
 					</label>
 					<label className='relative'>
@@ -66,13 +81,16 @@ export default function AddOns() {
 							name='addOn2'
 							type='checkbox'
 							value='Larger storage'
-							checked={store['Larger storage']}
+							checked={store['Larger storage'].selected}
 							onChange={handleChange}
 							className='absolute top-6 left-6 '
 						/>
 						<AddOnOption
 							name='Larger storage'
 							description='Extra 1TB of cloud save'
+							price={getPrice('Larger storage', monthly)}
+							monthly={monthly}
+							selected={store['Larger storage'].selected}
 						/>
 					</label>
 					<label className='relative'>
@@ -80,13 +98,16 @@ export default function AddOns() {
 							name='addOn3'
 							type='checkbox'
 							value='Customizable profile'
-							checked={store['Customizable profile']}
+							checked={store['Customizable profile'].selected}
 							onChange={handleChange}
 							className='absolute top-6 left-6 '
 						/>
 						<AddOnOption
 							name='Customizable profile'
 							description='Custom theme on your profile'
+							price={getPrice('Customizable profile', monthly)}
+							monthly={monthly}
+							selected={store['Customizable profile'].selected}
 						/>
 					</label>
 				</div>

@@ -8,7 +8,9 @@ export default function PlanOptions({
 	return (
 		<div
 			className={`border hover:border-purple-900 flex lg:flex-col lg:items-start items-center p-1 lg:p-3 cursor-pointer gap-3  w-full rounded-lg ${
-				selectedName == name ? 'bg-magnolia border-purple-800' : ''
+				selectedName == name
+					? 'bg-magnolia border-purple-800 transition duration-200'
+					: ''
 			}`}
 		>
 			<div className='w-10 lg:py-1'>{icon}</div>

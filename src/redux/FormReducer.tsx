@@ -18,9 +18,18 @@ interface data {
 		yearly: boolean;
 	};
 	addOns: {
-		'Online service': boolean;
-		'Larger storage': boolean;
-		'Customizable profile': boolean;
+		'Online service': {
+			selected: boolean;
+			price: string;
+		};
+		'Larger storage': {
+			selected: boolean;
+			price: string;
+		};
+		'Customizable profile': {
+			selected: boolean;
+			price: string;
+		};
 	};
 }
 
@@ -42,9 +51,18 @@ const initialState: data = {
 		yearly: false,
 	},
 	addOns: {
-		'Online service': false,
-		'Larger storage': false,
-		'Customizable profile': false,
+		'Online service': {
+			selected: false,
+			price: '',
+		},
+		'Larger storage': {
+			selected: false,
+			price: '',
+		},
+		'Customizable profile': {
+			selected: false,
+			price: '',
+		},
 	},
 };
 
