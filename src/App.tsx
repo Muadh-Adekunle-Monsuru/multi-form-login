@@ -4,7 +4,7 @@ import NavLinksMobile from './components/NavLinksMobile';
 function App() {
 	return (
 		<main className='font-ubuntu bg-magnolia h-screen overflow-hidden flex flex-col justify-center items-center'>
-			<div className='flex justify-center w-full  h-52 bg-mobile lg:hidden bg-cover bg-center'>
+			<div className='flex justify-center items-start w-full  h-52 bg-mobile lg:hidden bg-cover bg-center'>
 				<NavLinksMobile />
 			</div>
 			<div className='container lg:shadow-lg lg:w-[65%] p-5 lg:p-1 mx-auto bg-transparent lg:bg-white h-3/4 rounded-lg grid lg:grid-cols-4 gap-3'>

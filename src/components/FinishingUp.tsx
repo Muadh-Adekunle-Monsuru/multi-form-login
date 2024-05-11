@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { isComplete } from '../redux/FormReducer';
 import { RootState } from '../redux/store';
 export default function FinishingUp() {
+	const dispatch = useDispatch();
 	const plan = useSelector((state: RootState) => state.formData.plan);
 	const addOn = useSelector((state: RootState) => state.formData.addOns);
 
@@ -13,61 +15,75 @@ export default function FinishingUp() {
 
 	const totalPrice = Number(plan.price) + addOnTotal;
 	const finalPrice = isNaN(totalPrice) ? Number(plan.price) : totalPrice;
+	const handleSubmit = () => {
+		if (plan.name == '') return;
+		dispatch(isComplete());
+	};
 	return (
-		<section className='lg:px-20 py-5 px-4 text-marine-blue  h-full'>
+		<section className='lg:px-20 py-5 px-4 text-marine-blue h-full lg:flex lg:flex-col lg:justify-between'>
 			<div>
 				<h1 className='font-bold  text-3xl '>Finishing up</h1>
 				<p className='text-gray-400 text-sm lg:py-1'>
 					Double-check everything looks OK before confirming.
 				</p>
-			</div>
-			<div className='text-xs text-gray-400 pt-5'>
-				<div className='  bg-magnolia px-5 p-2 pb-3 rounded-lg'>
-					<div className='flex justify-between items-center py-3 border-b border-gray-300'>
+				<div className='text-xs text-gray-400 pt-5'>
+					<div className='bg-magnolia px-5 p-2 pb-3 rounded-lg'>
+						<div className='flex justify-between items-center py-5 border-b border-gray-300'>
+							<div>
+								{plan.name == '' ? (
+									<Link to={'/plan'}>
+										<div className='text-red-500 animate-pulse underline font-bold text-xl'>
+											Select a plan
+										</div>
+									</Link>
+								) : (
+									<div>
+										<div className='font-semibold text-marine-blue text-lg py-1'>
+											{plan.name} {plan.monthly ? '(monthly)' : '(yearly)'}
+										</div>
+										<Link to={'/plan'}>
+											<div className='underline cursor-pointer'>Change</div>
+										</Link>
+									</div>
+								)}
+							</div>
+							<div className='font-bold text-marine-blue text-sm'>
+								${plan.price}/{plan.monthly ? 'mo' : 'yr'}
+							</div>
+						</div>
 						<div>
-							<div className='font-semibold text-marine-blue text-lg py-1'>
-								{plan.name} {plan.monthly ? '(monthly)' : '(yearly)'}
-							</div>
-							<Link to={'/plan'}>
-								<div className='underline cursor-pointer'>Change</div>
-							</Link>
-						</div>
-						<div className='font-bold text-marine-blue text-sm'>
-							${plan.price}/{plan.monthly ? 'mo' : 'yr'}
+							{addOnArr.map((val) => (
+								<div
+									className='flex justify-between items-center py-2'
+									key={val}
+								>
+									<p>{val}</p>
+									<p className='text-marine-blue'>
+										+{addOn[val].price}/{plan.monthly ? 'mo' : 'yr'}
+									</p>
+								</div>
+							))}
 						</div>
 					</div>
-					<div>
-						{addOnArr.map((val) => (
-							<div className='flex justify-between items-center py-2' key={val}>
-								<p>{val}</p>
-								<p className='text-marine-blue'>
-									+{addOn[val].price}/{plan.monthly ? 'mo' : 'yr'}
-								</p>
-							</div>
-						))}
+					<div className='flex justify-between items-center p-5'>
+						<p>Total {plan.monthly ? '(per month)' : '(per year)'}</p>
+						<p className='text-purplish-blue font-bold text-xl'>
+							${finalPrice}/{plan.monthly ? 'mo' : 'yr'}
+						</p>
 					</div>
-				</div>
-				<div className='flex justify-between items-center p-5'>
-					<p>Total {plan.monthly ? '(per month)' : '(per year)'}</p>
-					<p className='text-purplish-blue font-bold text-xl'>
-						${finalPrice}/{plan.monthly ? 'mo' : 'yr'}
-					</p>
 				</div>
 			</div>
 			<div className='flex justify-between lg:mt-12 items-center'>
-				<Link to={'/add-ons'}>
-					<p className='lg:relative absolute bottom-1 left-6 font-bold hover:text-purplish-blue cursor-pointer text-gray-600'>
-						Go Back
-					</p>
-				</Link>
-				<Link to={'/add-ons'}>
-					<button
-						className='absolute bottom-1 right-6 lg:relative float-end p-3 bg-purplish-blue text-white rounded-md text-sm hover:bg-marine-blue'
-						type='submit'
-					>
-						Confim
-					</button>
-				</Link>
+				<p className='lg:relative absolute bottom-1 left-6 font-bold hover:text-purplish-blue text-gray-600'>
+					<Link to={'/add-ons'}>Go Back</Link>
+				</p>
+				<button
+					className='absolute bottom-1 right-6 lg:relative float-end p-3 bg-purplish-blue text-white rounded-md text-sm hover:bg-marine-blue'
+					type='submit'
+					onClick={handleSubmit}
+				>
+					Confim
+				</button>
 			</div>
 		</section>
 	);

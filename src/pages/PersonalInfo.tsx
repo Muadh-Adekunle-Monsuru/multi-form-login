@@ -18,7 +18,6 @@ export default function PersonalInfo() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(e);
 		const inputData = {
 			name: e.target.username.value,
 			email: e.target.email.value,
@@ -65,22 +64,22 @@ export default function PersonalInfo() {
 			// 	newErrors[err.path] = err.message;
 			// });
 			// dispatch(addErrors(newErrors));
-			// console.log(newErrors);
 		}
 	};
 	return (
-		<section className='lg:px-20 pt-5 text-marine-blue'>
-			<div className='flex flex-col'>
+		<section className='lg:px-20 pt-5 text-marine-blue flex flex-col lg:justify-between h-full'>
+			<div>
 				<h1 className='font-bold text-3xl '>Personal info</h1>
 				<p className='text-gray-400 text-sm py-1'>
 					Please provide your name,email address and phone number
 				</p>
-				<form
-					id='myForm'
-					className='py-3 font-semibold space-y-5 lg:space-y-3  flex-grow'
-					onChange={handleChange}
-					onSubmit={handleSubmit}
-				>
+			</div>
+			<form
+				id='myForm'
+				className='py-3 font-semibold space-y-5 lg:space-y-3 flex-grow lg:flex lg:flex-col lg:justify-between'
+				onSubmit={handleSubmit}
+			>
+				<div className=' space-y-5 lg:space-y-5'>
 					<div className='flex flex-col '>
 						<label className='text-sm flex justify-between'>
 							Name
@@ -99,6 +98,7 @@ export default function PersonalInfo() {
 								errors.name ? 'border-2 border-red-500' : ''
 							}`}
 							value={store.name}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className='flex flex-col gap-1'>
@@ -118,6 +118,7 @@ export default function PersonalInfo() {
 								errors.email ? 'border-2 border-red-500' : ''
 							}`}
 							value={store.email}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className='flex flex-col gap-1'>
@@ -136,16 +137,17 @@ export default function PersonalInfo() {
 								errors.phone ? 'border-2 border-red-500' : ''
 							}`}
 							value={store.phone}
+							onChange={handleChange}
 						/>
 					</div>
-					<button
-						className='absolute bottom-1 right-6 lg:relative float-end p-3 bg-marine-blue text-white rounded-md text-sm hover:bg-purplish-blue'
-						type='submit'
-					>
-						Next Step
-					</button>
-				</form>
-			</div>
+				</div>
+				<button
+					className='absolute bottom-1 right-6 lg:relative p-3 bg-marine-blue text-white rounded-md text-sm hover:bg-purplish-blue w-24 place-self-end'
+					type='submit'
+				>
+					Next Step
+				</button>
+			</form>
 		</section>
 	);
 }
