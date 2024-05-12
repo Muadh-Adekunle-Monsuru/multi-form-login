@@ -43,7 +43,7 @@ export default function PersonalInfo() {
 			console.log(newErrors);
 		}
 	};
-	const handleChange = async (e) => {
+	const handleChange = async () => {
 		const form = document.forms['myForm'];
 		const inputData = {
 			name: form.elements['username'].value,

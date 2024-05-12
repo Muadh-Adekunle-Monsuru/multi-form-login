@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 export default function NavLinksMobile() {
 	const location = useLocation();

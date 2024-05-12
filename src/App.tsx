@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useLocation, useOutlet } from 'react-router-dom';
+import { useLocation, useOutlet } from 'react-router-dom';
 import NavLinks from './components/NavLinks';
 import NavLinksMobile from './components/NavLinksMobile';
 import { AnimatePresence } from 'framer-motion';
