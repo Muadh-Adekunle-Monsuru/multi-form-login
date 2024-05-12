@@ -22,7 +22,7 @@ const AnimatedLayout = ({ children }: Props): React.JSX.Element => {
 			exit='exit'
 			variants={variants}
 			transition={{ duration: 0.5, type: 'tween' }}
-			// className='relative'
+			className='h-full'
 		>
 			{children}
 		</motion.div>

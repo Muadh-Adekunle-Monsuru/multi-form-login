@@ -69,7 +69,7 @@ export default function PersonalInfo() {
 	};
 	return (
 		<AnimatedLayout>
-			<section className='lg:px-20 pt-5 text-marine-blue flex flex-col lg:justify-between h-full'>
+			<section className='lg:px-20 pt-5 text-marine-blue flex flex-col lg:justify-between h-full '>
 				<div>
 					<h1 className='font-bold text-3xl '>Personal info</h1>
 					<p className='text-gray-400 text-sm py-1'>
