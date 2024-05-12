@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { isComplete } from '../redux/FormReducer';
 import { RootState } from '../redux/store';
+import * as emailjs from '@emailjs/browser';
+
 export default function FinishingUp() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const plan = useSelector((state: RootState) => state.formData.plan);
 	const addOn = useSelector((state: RootState) => state.formData.addOns);
+	const store = useSelector((state: RootState) => state.formData);
 
 	const addOnArr = Object.keys(addOn).filter((val) => addOn[val].selected);
 	const addOnPrices = addOnArr.map((val) => addOn[val].price);
@@ -15,8 +19,38 @@ export default function FinishingUp() {
 
 	const totalPrice = Number(plan.price) + addOnTotal;
 	const finalPrice = isNaN(totalPrice) ? Number(plan.price) : totalPrice;
+	emailjs.init({
+		publicKey: 'LgQKXVuexOU_J5inq',
+		limitRate: {
+			// Set the limit rate for the application
+			id: 'app',
+			// Allow 1 request per 10s
+			throttle: 10000,
+		},
+	});
+	const getEmailData = () => {
+		return {
+			customer_name: store.personal.name,
+			customer_email: store.personal.email,
+			customer_phone: store.personal.phone,
+			plan_name: store.plan.name,
+			plan_price: store.plan.price,
+			plan_monthly: store.plan.monthly ? 'Monthly' : 'Yearly',
+			addOns: addOnArr,
+			total: finalPrice,
+		};
+	};
 	const handleSubmit = () => {
 		if (plan.name == '') return;
+		if (store.personal.name == '') return navigate('/');
+		emailjs.send('service_yw2a5am', 'template_6mx4zha', getEmailData()).then(
+			(response) => {
+				console.log('SUCCESS!', response.status, response.text);
+			},
+			(error) => {
+				console.log('FAILED...', error);
+			}
+		);
 		dispatch(isComplete());
 	};
 	return (

@@ -8,7 +8,7 @@ export default function ThankYou() {
 				<Lottie
 					animationData={Animation}
 					loop={1}
-					className='absolute top-0 left-4 h-full'
+					className='absolute top-0 left-5 h-full'
 				/>
 			</div>
 			<div className=''>

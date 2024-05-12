@@ -1,7 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import React from 'react';
+import { Outlet, useLocation, useOutlet } from 'react-router-dom';
 import NavLinks from './components/NavLinks';
 import NavLinksMobile from './components/NavLinksMobile';
+import { AnimatePresence } from 'framer-motion';
 function App() {
+	const location = useLocation();
+	const element = useOutlet();
 	return (
 		<main className='font-ubuntu bg-magnolia h-screen overflow-hidden flex flex-col justify-center items-center'>
 			<div className='flex justify-center items-start w-full  h-52 bg-mobile lg:hidden bg-cover bg-center'>
@@ -12,7 +16,9 @@ function App() {
 					<NavLinks />
 				</div>
 				<div className='bg-white col-span-3 -mt-28 p-3  lg:p-0 lg:m-0 h-full shadow-lg lg:shadow-none  lg:h-full rounded-md'>
-					<Outlet />
+					<AnimatePresence mode='wait' initial={true}>
+						{element && React.cloneElement(element, { key: location.pathname })}
+					</AnimatePresence>
 				</div>
 			</div>
 		</main>
