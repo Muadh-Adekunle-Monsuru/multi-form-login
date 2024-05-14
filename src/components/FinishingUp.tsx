@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isComplete } from '../redux/FormReducer';
+import { isComplete, addTotal } from '../redux/FormReducer';
 import { RootState } from '../redux/store';
 import * as emailjs from '@emailjs/browser';
 
@@ -51,6 +51,7 @@ export default function FinishingUp() {
 				console.log('FAILED...', error);
 			}
 		);
+		dispatch(addTotal(finalPrice));
 		dispatch(isComplete());
 	};
 	return (

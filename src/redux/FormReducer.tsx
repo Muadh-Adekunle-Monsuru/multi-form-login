@@ -31,6 +31,7 @@ interface data {
 			price: string;
 		};
 	};
+	finalPrice: number;
 	complete: boolean;
 }
 
@@ -66,6 +67,7 @@ const initialState: data = {
 		},
 	},
 	complete: false,
+	finalPrice: 0,
 };
 
 const dataSlice = createSlice({
@@ -87,9 +89,18 @@ const dataSlice = createSlice({
 		isComplete: (state) => {
 			state.complete = true;
 		},
+		addTotal: (state, action) => {
+			state.finalPrice = action.payload;
+		},
 	},
 });
 
-export const { addPersonalInfo, addErrors, addPlan, addAddons, isComplete } =
-	dataSlice.actions;
+export const {
+	addPersonalInfo,
+	addErrors,
+	addPlan,
+	addAddons,
+	isComplete,
+	addTotal,
+} = dataSlice.actions;
 export default dataSlice.reducer;
