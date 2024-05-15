@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Checkmark from './Checkmark';
 import Animation from '../assets/confetti.json';
 import Lottie from 'lottie-react';
@@ -15,7 +16,7 @@ export default function ThankYou() {
 			body: JSON.stringify(store), // Convert object to JSON string
 		};
 
-		fetch('https://gaming-backend-w1dq.onrender.com/orders', requestOptions)
+		fetch('https://love-gaming-backend.vercel.app/orders', requestOptions)
 			.then((response) => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
@@ -32,15 +33,16 @@ export default function ThankYou() {
 	const { mutate: pushData } = useMutation({
 		mutationFn: postNote,
 		onSuccess: () => {
-			console.log('Dat added successfully');
+			console.log('Data added successfully');
 		},
 	});
 
+	useEffect(() => {
+		pushData();
+	}, []);
+
 	return (
-		<div
-			className='flex flex-col justify-center items-center gap-3 h-full relative'
-			onLoad={() => pushData()}
-		>
+		<div className='flex flex-col justify-center items-center gap-3 h-full relative'>
 			<div>
 				<Lottie
 					animationData={Animation}

@@ -45,10 +45,10 @@ export default function FinishingUp() {
 		if (store.personal.name == '') return navigate('/');
 		emailjs.send('service_yw2a5am', 'template_6mx4zha', getEmailData()).then(
 			(response) => {
-				console.log('SUCCESS!', response.status, response.text);
+				console.log('SUCCESS Email Sent!', response.status, response.text);
 			},
 			(error) => {
-				console.log('FAILED...', error);
+				console.log('FAILED Email Not Send', error);
 			}
 		);
 		dispatch(addTotal(finalPrice));

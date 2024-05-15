@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import AnimatedLayout from '../components/AnimatedLayout';
 export default function Summary() {
 	const complete = useSelector((state: RootState) => state.formData.complete);
-	console.log(complete);
 	return (
 		<AnimatedLayout>
 			<motion.div className='h-full flex-grow'>
